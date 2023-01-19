@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Book;
 use Illuminate\Support\Facades\Route;
-use App\Http\controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +14,19 @@ use App\Http\controllers\ProductController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/',[ProductController::class,'index'])->name('home');
-Route::post('store', [ProductController::class, 'store'])->name('store');
-//route for edit
-Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
+Route::get('/', function () {
+    $book = Book::all();
 
+    return view('welcome')
+    ->with('book',$book)
+
+    ;
+});
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::patch('update/{id}', [ProductController::class, 'update'])->name('update');
-//route for delete
-Route::get('delete/{id}', [ProductController::class, 'destroy'])->name('delete');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');
+Route::get('delete/{id}',[App\Http\Controllers\HomeController::class,'delete'])->name('delete');
+Route::get('/edit/{id}',[App\Http\Controllers\HomeController::class,'showData']);
+Route::post('edit',[App\Http\Controllers\HomeController::class,'update']);

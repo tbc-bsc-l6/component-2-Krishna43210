@@ -1,52 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>update and delete</title>
-</head>
-<body>
-@include('template.header')
-<div class="row bg-success py-3 justify-content-center">
-    <div class="col-md-3 bg-secondary border border-secondary my-3 py-3">
-            <span >
-                <h3><b class="">EDIT</b></h3>
-            </span>
-        <div class="float-right">    
-            
-        </div>
-            <form action="{{route('update', $shopproduct[0]['id'] )}}" method="POST">
+
+@extends('layouts.app')
+
+@section('content')
+<br>
+<br>
+<h1 class="my-4 heading text-center"style="color:black;">update product</h1>
+
+<div class="padding container-fluid d-flex justify-content-center">
+    <div class="col-md-6">
+        <div class="free-quote bg-dark h-100">
+            <h2 class="my-4 heading text-center">Insert data here!!!</h2>
+            <form action="/edit" method="POST">
                 @csrf
-                @method('PATCH')
-                <div class="form-group">
-                    <input type="hidden" class="form-control" name="type" value="{{$shopproduct[0]['type']}}">
-                    <input type="text" class="form-control" name="title" value="{{$shopproduct[0]['title']}}" placeholder="title">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="firstname" value="{{$shopproduct[0]['firstname']}}" placeholder="first name (optional)">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="sname" value="{{$shopproduct[0]['mainname']}}" placeholder="surname / brand">
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" name="price" value="{{$shopproduct[0]['price']}}" placeholder="price">
-                </div>
-                <div class="form-group">
-                    @if($shopproduct[0]['type']=='book')
-                        <input type="number" placeholder="pages / playlength" name="pagelengths" class="my-2 p-2 form-control border capitalize" value="{{$shopproduct[0]['numpages']}}"/>
-                    @else
-                        <input type="number" placeholder="pages / playlength" name="pagelengths" class="my-2 p-2 form-control border capitalize" value="{{$shopproduct[0]['playlength']}}"/>
-                    @endif
-                </div>
-                <button type="submit" class="btn btn-primary">UPDATE</button>
-                <a class="btn btn-danger float-right" href="{{route('delete', $shopproduct[0]['id'])}}">DELETE</a>
+
+                <span><strong>Product Type:</strong></span>
+                <select class="form-control btn-block" name="choice" value="{{$data['choice']}}">
+                    <option value="cd">CDs</option>
+                    <option value="book">BOOk</option>
+                </select><br>
+
+                <input  type="hidden" name="id" value="{{$data['id']}}">
+                <br>
+                <br>
+                <input class="form-control btn-block" type="text" name="firstname" placeholder="First Name"  value="{{$data['firstname']}}">
+                <br>
+                <br>
+                <input class="form-control btn-block" type="text" name="surname" placeholder="Surname"  value="{{$data['surname']}}">
+                <br>
+                <br>
+                <input class="form-control btn-block" type="text" name="price" placeholder="Price"  value="{{$data['price']}}">
+                <br>
+                <br>
+                <input class="form-control btn-block" type="text" name="papl" placeholder="Pages/Play Length" value="{{$data['papl']}}">
+                <br>
+                <br>
+                <button type="submit" name="" class="btn btn-dark">update</button>
+
+
+
+
             </form>
 
-            <div class="delete">
-            </div>
+        </div>
     </div>
 </div>
-@include('template.footer')
-</body>
-</html>
+@endsection
